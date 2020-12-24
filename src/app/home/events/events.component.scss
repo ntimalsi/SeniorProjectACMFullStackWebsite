@@ -1,0 +1,83 @@
+@import "../../../styles.scss";
+
+.events {
+  @include border;
+  border: 1px rgb(194, 186, 186) solid;
+}
+
+.bt {
+  color: $blued;
+  font-weight: 100;
+  font-size: xx-small;
+  max-height: 1rem;
+}
+
+.ehead {
+  max-height: 2rem;
+}
+
+.acontent {
+  font-size: small;
+  font-weight: 600;
+  color: $gfont;
+}
+
+.adate {
+  font-size: smaller;
+  color: $gfont;
+}
+
+[nz-button] {
+  margin-right: 8px;
+  margin-bottom: 12px;
+}
+
+button :focus {
+  outline: 0 !important;
+}
+
+ckeditor {
+  border: 1px rgb(179, 179, 179) solid;
+  border-radius: 3px;
+}
+
+.fa-plus {
+  font-size: smaller;
+}
+
+input[type="file"] {
+  display: none;
+}
+
+nz-range-picker {
+  margin: 0 8px 12px 0;
+}
+
+.ant-picker-wrapper {
+  z-index: 10000 !important;
+}
+
+// .modal[_ngcontent-uhx-c204]{
+//   z-index : 80;
+// }
+
+button :focus {
+  outline: none;
+}
+
+.ant-drawer-close {
+  --scroll-bar: 0px;
+  padding-top: 14px;
+}
+
+.filename {
+  border: 1px solid $grayed-border;
+  border-radius: 2px;
+}
+
+.deleteButton {
+  color: $gfont;
+  :hover {
+    color: red;
+  }
+}

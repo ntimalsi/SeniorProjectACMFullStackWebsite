@@ -1,0 +1,19 @@
+<div class="container-fluid mt-4">
+  <div
+    *ngIf="!isDataLoaded"
+    class="d-flex align-items-center justify-content-center"
+  >
+    <nz-spin
+      nzSimple
+      [nzSize]="'large'"
+      nzTip="Fetching your posts..."
+    ></nz-spin>
+  </div>
+
+  <div *ngIf="isDataLoaded">
+    <div *ngFor="let post of posts">
+      <!-- one post -->
+      <app-onepost [post]="post" *ngIf="!isLoading"></app-onepost>
+    </div>
+  </div>
+</div>

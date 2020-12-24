@@ -1,0 +1,37 @@
+@import "../../../../styles.scss";
+
+.bt {
+  color: $blued;
+  font-weight: 100;
+  font-size: 6px;
+  max-height: 1rem;
+}
+
+.acontent {
+  font-size: small;
+  font-weight: 600;
+  color: $gfont;
+}
+
+.adate {
+  font-size: smaller;
+  color: $gfont;
+}
+
+.ripple {
+  :hover {
+    background-color: $gbg;
+  }
+
+  :active {
+    background-color: $gbg;
+  }
+}
+
+.bg1 {
+  background-color: $gbg;
+}
+
+.active-link div {
+  background-color: $gbg;
+}

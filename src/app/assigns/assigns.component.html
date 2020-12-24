@@ -1,0 +1,31 @@
+<p-table [value]="products">
+  <ng-template pTemplate="header">
+    <tr>
+      <th pSortableColumn="code">
+        ID <p-sortIcon field="code"></p-sortIcon>
+      </th>
+      <th pSortableColumn="name">
+        Name <p-sortIcon field="name"></p-sortIcon>
+      </th>
+      <th pSortableColumn="category">
+        Major <p-sortIcon field="category"></p-sortIcon>
+      </th>
+      <th pSortableColumn="quantity">
+        Label <p-sortIcon field="quantity"></p-sortIcon>
+      </th>
+      <th pSortableColumn="price">
+        Membership Due <p-sortIcon field="price"></p-sortIcon>
+      </th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-product>
+    <tr>
+      <td>{{ product.code }}</td>
+      <td>{{ product.name }}</td>
+      <td>{{ product.category }}</td>
+      <td>{{ product.quantity }}</td>
+      <td>{{ product.price | currency: "USD" }}</td>
+
+    </tr>
+  </ng-template>
+</p-table>

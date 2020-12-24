@@ -1,0 +1,44 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* Importing Bootstrap SCSS file. */
+@import "~bootstrap/scss/bootstrap";
+
+$grayed-border: #00000031;
+$blued: RGB(0, 157, 236);
+$gfont: rgb(63, 63, 63);
+$gbg: rgb(238, 238, 238);
+
+@mixin input {
+  padding: 1em;
+  border: none;
+}
+
+.ck-editor__editable {
+  min-height: 10rem;
+}
+
+.ckeditor_announce_title {
+  min-height: 5rem;
+}
+
+.ckeditor_announce_description {
+  min-height: 10rem;
+}
+
+@mixin border {
+  border: 1px $grayed-border solid;
+  border-radius: 3px;
+  -webkit-box-shadow: 0px 0px 5px 1px rgba(130, 130, 130, 0.6);
+  -moz-box-shadow: 0px 0px 5px 1px rgba(130, 130, 130, 0.6);
+  box-shadow: 0px 0px 3px 1px rgba(216, 216, 216, 0.6);
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}

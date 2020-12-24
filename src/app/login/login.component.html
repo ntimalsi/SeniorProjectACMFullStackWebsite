@@ -1,0 +1,92 @@
+<div class="container my-auto">
+  <div class="row ">
+    <div class="col-12 pt-3 d-flex justify-content-center">
+      <div class="display-4 font-smaller">OLE MISS ACM PORTAL</div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12 pt-3 display-4 d-flex justify-content-center">
+      Welcome
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12 pt-3 d-flex justify-content-center">
+      <h6>Login with your email and password / Register now</h6>
+    </div>
+  </div>
+  <div class="row">
+    <div
+      class="col-12 pt-3 w-50 d-flex justify-content-center"
+      style="display: none;"
+    >
+      <!-- <input nz-input placeholder="Basic usage" [(ngModel)]="value" /> -->
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12 pt-3">
+      <form
+        nz-form
+        [formGroup]="loginForm"
+        class="login-form mx-auto"
+        (ngSubmit)="submitForm()"
+      >
+        <nz-form-item>
+          <nz-form-control nzErrorTip="Please input your email!">
+            <nz-input-group nzPrefixIcon="user">
+              <input
+                type="email"
+                nz-input
+                formControlName="userName"
+                placeholder="Email"
+              />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-control nzErrorTip="Please input your Password!">
+            <nz-input-group nzPrefixIcon="lock">
+              <input
+                type="password"
+                nz-input
+                formControlName="password"
+                placeholder="Password"
+              />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+        <div nz-row class="login-form-margin">
+          <div nz-col [nzSpan]="12">
+            <label nz-checkbox formControlName="remember" ngDefaultControl>
+              <span>Remember me</span>
+            </label>
+          </div>
+          <div nz-col [nzSpan]="12">
+            <a class="login-form-forgot">Forgot password</a>
+          </div>
+        </div>
+        <button
+          nz-button
+          class="login-form-button login-form-margin"
+          [nzType]="'primary'"
+          (click)="loadingF()"
+          *ngIf="!isLoading"
+        >
+          Log in
+        </button>
+        Or <a [routerLink]="['/login/reg']"> register now! </a>
+      </form>
+      <div class="container-fluid mt-3">
+        <div
+          *ngIf="isLoading"
+          class="d-flex align-items-center justify-content-center"
+        >
+          <nz-spin
+            nzSimple
+            [nzSize]="'large'"
+            nzTip="Getting you onboard..."
+          ></nz-spin>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

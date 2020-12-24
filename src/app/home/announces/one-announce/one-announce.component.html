@@ -1,0 +1,27 @@
+<a class="ripple" [ngClass]="{ 'active-link': grayBg }">
+  <div
+    class="row mx-0 py-1"
+    nz-popover
+    nzPopoverTitle="{{ announcement.title }}"
+    [(nzPopoverVisible)]="visible"
+    (nzPopoverVisibleChange)="change($event)"
+    nzPopoverTrigger="click"
+    [nzPopoverContent]="contentTemplate"
+    nzPopoverPlacement="bottom"
+  >
+    <div class="col-1 bt my-auto" style="max-height: 1rem;">
+      <span class="fa fa-circle"></span>
+    </div>
+    <div class="col-8 px-2 ml-1  acontent">
+      {{ announcement.title }}
+    </div>
+    <div class="col-2 adate px-0 mx-0 d-flex justify-content-end">
+      {{ announcement.time | date: "d MMM" }}
+    </div>
+  </div>
+</a>
+
+<ng-template #contentTemplate>
+  <span (click)="clickMe()" [innerHtml]="announcement.description"></span>:-
+  {{ announcement.username }}
+</ng-template>

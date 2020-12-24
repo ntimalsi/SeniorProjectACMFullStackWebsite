@@ -1,0 +1,307 @@
+<div class="container-fluid my-5">
+  <div class="row align-items-center full">
+    <!-- notes -->
+    <div class="col border-left">
+      <div class="row mt-3">
+        <div class="col display-4 pt-3 pl-3">
+          <span>Tutorials</span>
+        </div>
+      </div>
+      <nz-spin
+        class="d-flex justify-content-center mt-5"
+        *ngIf="!isDataLoaded"
+        nzTip="Fetching content..."
+        nzSimple
+        [nzSize]="'large'"
+      ></nz-spin>
+      <div *ngIf="isDataLoaded" class="row">
+        <div class="col ml-1 mt-1">
+          <div class="form-group div-inline mb-0 has-search px-1 w-sm-50">
+            <span class="fa fa-search form-control-feedback"></span>
+            <input
+              type="text"
+              class="form-control"
+              (input)="searchItem($event.target.value)"
+              placeholder="Search tutorials..."
+            />
+          </div>
+
+          <div class="div-inline px-1 my-1">
+            <button
+              nz-button
+              nzType="default"
+              nz-popover
+              nzPopoverTitle="Filter by:"
+              [(nzPopoverVisible)]="popVisible"
+              nzPopoverTrigger="click"
+              [nzPopoverContent]="contentTemplate"
+            >
+              Filter &nbsp; <i class="fas fa-filter fi"></i>
+            </button>
+            <ng-template #contentTemplate>
+              <div class="conainer">
+                <div class="row">
+                  <div class="col font-weight-bold">Branch:</div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <nz-checkbox-group
+                      [(ngModel)]="checkOptionOne"
+                    ></nz-checkbox-group>
+                  </div>
+                </div>
+                <br />
+                <div class="row">
+                  <div class="col font-weight-bold">Semester:</div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <nz-checkbox-group
+                      [(ngModel)]="checkOptionTwo"
+                    ></nz-checkbox-group>
+                  </div>
+                  <br />
+                </div>
+                <div class="row">
+                  <div class="col d-flex mt-3 justify-content-center">
+                    <button
+                      nz-button
+                      nzType="primary"
+                      (click)="submitFilter()"
+                      class="mx-auto"
+                    >
+                      Submit
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </ng-template>
+          </div>
+
+          <div class="div-inline px-1 my-1">
+            <button
+              *ngIf="curUser"
+              nz-button
+              nzType="dashed"
+              class="ml-2 my-1"
+              nzDanger
+              (click)="open()"
+            >
+              Upload
+            </button>
+            <button
+              *ngIf="!curUser"
+              nz-button
+              nzType="dashed"
+              class="ml-2 my-1"
+              nzDanger
+              [routerLink]="['/login']"
+            >
+              Sign in to upload
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="row pl-3 mt-3" *ngIf="searching">
+        <div class="col">
+          <nz-spin nzSimple nzTip="Searching tutorials..."></nz-spin>
+        </div>
+      </div>
+      <div class="row pl-3 mt-3" *ngIf="filtering">
+        <div class="col">
+          <nz-spin nzSimple nzTip="Filtering tutorials..."></nz-spin>
+        </div>
+      </div>
+      <div *ngIf="notFound" class="row mt-5">
+        <div class="col">
+          <nz-empty [nzNotFoundContent]="contentTpl"></nz-empty>
+        </div>
+      </div>
+      <ng-template #contentTpl>
+        <span style="color: #ff4d76"> No matches found</span>
+      </ng-template>
+      <div *ngIf="isDataLoaded" class="row pt-4 pl-3 notessec">
+        <div *ngFor="let tutorial of tutorials">
+          <div class="col pb-3 px-0 mx-2 cd">
+            <a href="{{ tutorial.ytLink }}" target="_blank" class="cardlink"
+              ><div class="card" style="width: 9rem">
+                <div class="m_load_here">
+                  <img
+                    [src]="getThumbnail(tutorial.ytLink)"
+                    class="card-img-top"
+                    alt="YouTube Video"
+                  />
+                  <a
+                    class="m_overlay"
+                    target="_blank"
+                    href="{{ tutorial.ytLink }}"
+                    data-src="{{ tutorial.ytlink }}"
+                  ></a>
+                  <span class="m_yt_button"
+                    ><svg
+                      height="100%"
+                      version="1.1"
+                      viewBox="0 0 68 48"
+                      width="100%"
+                    >
+                      <path
+                        class="ytp-large-play-button-bg"
+                        d="m .66,37.62 c 0,0 .66,4.70 2.70,6.77 2.58,2.71 5.98,2.63 7.49,2.91 5.43,.52 23.10,.68 23.12,.68 .00,-1.3e-5 14.29,-0.02 23.81,-0.71 1.32,-0.15 4.22,-0.17 6.81,-2.89 2.03,-2.07 2.70,-6.77 2.70,-6.77 0,0 .67,-5.52 .67,-11.04 l 0,-5.17 c 0,-5.52 -0.67,-11.04 -0.67,-11.04 0,0 -0.66,-4.70 -2.70,-6.77 C 62.03,.86 59.13,.84 57.80,.69 48.28,0 34.00,0 34.00,0 33.97,0 19.69,0 10.18,.69 8.85,.84 5.95,.86 3.36,3.58 1.32,5.65 .66,10.35 .66,10.35 c 0,0 -0.55,4.50 -0.66,9.45 l 0,8.36 c .10,4.94 .66,9.45 .66,9.45 z"
+                        fill="#FF0000"
+                        fill-opacity="0.81"
+                      />
+                      <path
+                        d="m 26.96,13.67 18.37,9.62 -18.37,9.55 -0.00,-19.17 z"
+                        fill="#fff"
+                      />
+                      <path
+                        d="M 45.02,23.46 45.32,23.28 26.96,13.67 43.32,24.34 45.02,23.46 z"
+                        fill="#ccc"
+                      /></svg
+                  ></span>
+                </div>
+
+                <div class="card-body">
+                  <h5 class="card-title">{{ tutorial.topic }}</h5>
+                  <div class="card-text">
+                    <div>{{ tutorial.subject }}</div>
+                    <hr class="my-1" />
+                    <div class="by">
+                      {{ tutorial.branch }} &bull;
+                      <span class="ml-auto">{{ tutorial.semester }} Sem</span>
+                    </div>
+                    <button
+                      nz-button
+                      (click)="deleteTutorial(tutorial._id)"
+                      nzType="danger"
+                      *ngIf="checkDeletable(tutorial.creator)"
+                      class="mt-2 w-100"
+                    >
+                      <i class="ml-auto far fa-trash-alt"></i>
+                      &nbsp;Delete
+                    </button>
+                  </div>
+                </div>
+              </div></a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<nz-drawer
+  *ngIf="isDataLoaded"
+  [nzPlacement]="placement"
+  [nzBodyStyle]="{ overflow: 'auto' }"
+  [nzMaskClosable]="false"
+  [nzWidth]="720"
+  [nzVisible]="visible"
+  nzTitle="Upload Notes"
+  [nzHeight]="400"
+  (nzOnClose)="close()"
+  class="mt-5"
+  nzZIndex="2000"
+>
+  <form nz-form [formGroup]="tutorialsForm">
+    <div class="modal-body pt-0 pb-3">
+      <div class="row h-auto">
+        <div class="col input-group">
+          <nz-form-item class="w-100 mr-3" style="min-width: 18.5rem">
+            <nz-form-label nzRequired nzFor="topic">Topic</nz-form-label>
+            <nz-form-control
+              nzHasFeedback
+              nzErrorTip="Topic name is required !"
+            >
+              <input
+                nz-input
+                formControlName="topic"
+                placeholder="Enter topic"
+                type="text"
+                id="topic"
+              />
+            </nz-form-control>
+          </nz-form-item>
+
+          <nz-form-item class="w-25 mr-4" style="min-width: 18.5rem">
+            <nz-form-label nzRequired>Branch</nz-form-label>
+            <nz-form-control nzHasFeedback>
+              <nz-select
+                name="Branch"
+                formControlName="branch"
+                nzPlaceHolder="Select branch"
+              >
+                <nz-option
+                  *ngFor="let branch of branches"
+                  nzValue="{{ branch }}"
+                  nzLabel="{{ branch }}"
+                ></nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+
+          <nz-form-item class="mr-4" style="min-width: 18.5rem">
+            <nz-form-label nzRequired>Semester</nz-form-label>
+            <nz-form-control nzHasFeedback>
+              <nz-select
+                name="semester"
+                formControlName="semester"
+                nzPlaceHolder="Select semester"
+              >
+                <nz-option
+                  *ngFor="let sem of sems"
+                  nzValue="{{ sem }}"
+                  nzLabel="{{ sem }}"
+                ></nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+
+          <nz-form-item class="w-50" style="min-width: 18rem">
+            <nz-form-label nzRequired>Subject</nz-form-label>
+            <nz-form-control nzHasFeedback [nzErrorTip]="subError">
+              <input
+                nz-input
+                formControlName="subject"
+                placeholder="Enter subject"
+                type="text"
+              />
+              <ng-template #subError let-control>
+                <ng-container *ngIf="control.hasError('required')">
+                  Please input subject !
+                </ng-container>
+              </ng-template>
+            </nz-form-control>
+          </nz-form-item>
+
+          <nz-form-item class="w-50" style="min-width: 18rem">
+            <nz-form-label nzRequired>Youtube Link</nz-form-label>
+            <nz-form-control nzHasFeedback [nzErrorTip]="subError">
+              <input
+                nz-input
+                formControlName="ytLink"
+                placeholder="Enter ytLink"
+                type="text"
+              />
+              <ng-template #subError let-control>
+                <ng-container *ngIf="control.hasError('required')">
+                  Please enter tutorial link !
+                </ng-container>
+              </ng-template>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+      <div *ngIf="uploadingStatus" class="row">
+        <div class="col d-flex justify-content-center">
+          <nz-spin nzSimple class="mt-3" nzTip="Uploading tutorial...">
+          </nz-spin>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button nz-button nzType="primary" (click)="onSubmit()">Save</button>
+    </div>
+  </form>
+</nz-drawer>

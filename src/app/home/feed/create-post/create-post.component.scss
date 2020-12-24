@@ -1,0 +1,84 @@
+@import "../../../../styles.scss";
+
+input {
+  @include input;
+  width: 90%;
+  &:hover {
+    background-color: rgba(128, 128, 128, 0.082);
+  }
+}
+
+textarea {
+  @include input;
+  width: 100%;
+}
+
+fa-icon {
+  font-size: large;
+  color: $gfont;
+}
+
+img {
+  border-radius: 50%;
+}
+
+ckeditor {
+  border: 1px rgb(179, 179, 179) solid;
+  border-radius: 3px;
+}
+
+.up {
+  padding-top: 3px;
+  padding-bottom: 3px;
+  padding-right: 8px;
+  padding-left: 8px;
+  border: 1px $blued solid;
+  color: $blued;
+  border-radius: 4px;
+  background-color: white;
+  &:hover {
+    background-color: rgba(128, 128, 128, 0.082);
+  }
+  &:focus {
+    outline: none;
+    background-color: rgba(128, 128, 128, 0.295);
+  }
+}
+
+.imgi {
+  color: $blued;
+}
+
+.cp {
+  @include border;
+  border-top: none;
+}
+
+input:focus {
+  outline: none;
+}
+
+i[nz-icon] {
+  font-size: 32px;
+  color: #999;
+}
+
+[nz-button] {
+  margin-right: 8px;
+  margin-bottom: 12px;
+}
+
+input[type="file"] {
+  display: none;
+}
+
+.image-preview {
+  height: 5rem 0;
+  margin: 1rem 0;
+  max-height: 5rem;
+
+  img {
+    height: 80px;
+    border-radius: 3px;
+  }
+}

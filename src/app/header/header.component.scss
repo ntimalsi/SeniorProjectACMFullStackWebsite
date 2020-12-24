@@ -1,0 +1,37 @@
+@import "../../styles.scss";
+nav {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.192);
+  -webkit-box-shadow: 0px 0px 5px 1px rgba(130, 130, 130, 0.6);
+  -moz-box-shadow: 0px 0px 5px 1px rgba(130, 130, 130, 0.6);
+  box-shadow: 0px 0px 3px 1px rgba(130, 130, 130, 0.6);
+}
+
+.navbar-dark {
+  color: white;
+}
+
+// a {
+//   color: #1865f2;
+//   font-weight: 400;
+// }
+
+.active {
+  border-bottom: 5px RGB(0, 157, 236) solid;
+}
+
+.navbar {
+  padding-bottom: 0px;
+  padding-top: 11px;
+}
+
+.navbar-brand {
+  color: white;
+}
+
+input,
+button,
+select,
+optgroup,
+textarea {
+  margin-bottom: 15px;
+}

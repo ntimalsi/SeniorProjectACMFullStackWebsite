@@ -1,0 +1,25 @@
+.login-form {
+  max-width: 300px;
+}
+
+.login-form-margin {
+  margin-bottom: 16px;
+}
+
+.login-form-forgot {
+  float: right;
+}
+
+.login-form-button {
+  width: 100%;
+}
+
+a:not([href]):not([tabindex]) {
+  color: rgb(24, 144, 255);
+  text-decoration: none;
+}
+
+nz-spin {
+  display: inline-block;
+  margin-right: 16px;
+}

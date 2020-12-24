@@ -1,0 +1,93 @@
+.ytp-large-play-button-bg {
+  fill: #ff0000;
+  fill-opacity: 0.81;
+  transition: fill 0.1s cubic-bezier(0.4, 0, 1, 1) 0s,
+    fill-opacity 0.1s cubic-bezier(0.4, 0, 1, 1) 0s;
+}
+.m_overlay:hover .ytp-large-play-button-bg {
+  fill: #cc181e;
+  fill-opacity: 1;
+  transition: fill 0.1s cubic-bezier(0, 0, 0.2, 1) 0s,
+    fill-opacity 0.1s cubic-bezier(0, 0, 0.2, 1) 0s;
+}
+.m_yt_button {
+  background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+  border-radius: 10px;
+  height: 30px;
+  left: 85%;
+  position: absolute;
+  top: 23%;
+  transform: translate(-50%, -50%);
+  width: 42px;
+  z-index: 5;
+  display: block;
+}
+.m_overlay {
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  position: absolute;
+}
+.m_yt_title {
+  color: #fff;
+  outline: 0 none;
+  text-decoration: none;
+  transition: color 0.1s cubic-bezier(0, 0, 0.2, 1) 0s;
+  float: left;
+  max-width: 100%;
+  overflow: hidden;
+  overflow-wrap: normal;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 18px;
+  padding: 14px 16px 0;
+}
+
+@import "../../../styles.scss";
+
+a {
+  color: $gfont;
+  text-decoration: none;
+  font-size: small;
+
+  &:hover {
+    color: black;
+    text-decoration: none;
+  }
+}
+
+.card {
+  &:hover {
+    background-color: $gbg;
+  }
+}
+
+.search {
+  border: 1px $grayed-border solid;
+  border-radius: 4px;
+}
+
+/* Styles for wrapping the search box */
+
+/* Bootstrap 4 text input with search icon */
+
+.has-search .form-control {
+  padding-left: 2.375rem;
+}
+
+.has-search .form-control-feedback {
+  position: absolute;
+  z-index: 2;
+  display: block;
+  width: 2.375rem;
+  height: 2.375rem;
+  line-height: 2.375rem;
+  text-align: center;
+  pointer-events: none;
+  color: #aaa;
+}
+
+.div-inline {
+  display: inline-block;
+}

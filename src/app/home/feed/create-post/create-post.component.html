@@ -1,0 +1,139 @@
+<!-- Button trigger modal -->
+
+<div class="conatiner post mb-4 cp pb-1 w-100" *ngIf="curUserAvailable">
+  <div class="row py-1" data-toggle="modal" data-target="#exampleModal">
+    <div class="col-2">
+      <span class="fa fa-edit d-flex pt-3 justify-content-end"></span>
+    </div>
+    <div class="col-10">
+      <input type="text" class="py-3" placeholder="Post ACM news here" />
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  *ngIf="curUserAvailable"
+>
+  <div class="modal-dialog mt-5" role="document">
+    <div class="modal-content">
+      <form [formGroup]="createdPost" (ngSubmit)="onSubmit()">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Create a post</h5>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body mt-0">
+          <div class="row">
+            <div class="col-2 pr-0">
+              <img src="{{ profileImg }}" height="50" width="50" alt="" />
+            </div>
+            <div class="col-10">
+              <div class="row font-weight-bolder pt-1 px-0">
+                {{ curUser.name }}
+              </div>
+              <div class="row">{{ curUser.designation }}</div>
+            </div>
+          </div>
+          <div class="row h-auto">
+            <div class="col input-group">
+              <ckeditor
+                [config]="editorConfig"
+                [editor]="Editor"
+                required
+                formControlName="postContent"
+                rows="10"
+                data=""
+                name="text"
+                class="mt-4 w-100"
+              ></ckeditor>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="up"
+            data-toggle="modal"
+            data-target="#addImagesModal"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
+            <span class="fa fa-images imgi"> </span>Add images
+          </button>
+          <button type="submit" class="btn btn-primary">Post</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="addImagesModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="addImagesModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addImagesModalLabel">Add images</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <button
+          type="button"
+          class="btn btn-light"
+          (click)="filePicker.click()"
+        >
+          Pick Images
+        </button>
+        <input type="file" (change)="onImagePicked($event)" #filePicker />
+        <div
+          class="image-preview"
+          *ngIf="
+            imagePreview !== '' &&
+            imagePreview &&
+            createdPost.get('image').valid
+          "
+        >
+          <img [src]="imagePreview" alt="post images" />
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          Close
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-toggle="modal"
+          data-target="#exampleModal"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          Save changes
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

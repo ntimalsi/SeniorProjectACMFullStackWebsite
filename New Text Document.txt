@@ -1,0 +1,29 @@
+cur user save info
+login ----------- page loaded and already logged in 
+
+
+ALREADY LOGGED IN
+app component ------- AuthService[autoAuthUser()];
+autoAuthUser() ----> setCurUserInfo() [return Logged in user info as observable] --->
+----> stores User info as object in 'cUser' statically ----> isLog<boolean> variable set to true 
+----> curUser <Subject : CurUser(model)> value set ---> authStatus <Subject : boolean> set true;
+
+curUser<Subject : CurUser> ----> to be accessed by distributeCurUserInfo()	[will return curUser asObservable]
+authStatus<Subject : boolean> ----> to be accessed by authSubsListener()	[will return authStatus asObservable]
+
+
+Static:
+cUser(static) var ---> accessed by getCurUser();
+isLog(static) var ---> accessed by isLogged();
+
+
+
+Auth service
+isLogged -- fn --- returns boolean if user is logged in
+
+
+
+
+NEW LOGIN
+loginUser() called ---> token value set ---> isLog(static) = true ---> authStatus.next(true) 
+----> setCurUserInfo() called

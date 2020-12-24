@@ -1,0 +1,94 @@
+@import "../../../styles.scss";
+
+a {
+  color: $gfont;
+  text-decoration: none;
+  font-size: small;
+
+  &:hover {
+    color: black;
+    text-decoration: none;
+  }
+}
+
+.card {
+  min-height: 13rem;
+  &:hover {
+    background-color: rgba(128, 128, 128, 0.11);
+  }
+}
+
+.search {
+  border: 1px $grayed-border solid;
+  border-radius: 4px;
+}
+
+// .notessec {
+//   background-color: rgba(134, 203, 243, 0.123);
+//   height: 100%;
+// }
+
+// // .full {
+// //   min-height: 80%;
+// // }
+
+// .nhead {
+//   border: rgba(134, 203, 243, 0.795) 2px solid;
+//   background-color: rgba(134, 203, 243, 0.795);
+//   border-radius: 4px;
+// }
+
+/* Styles for wrapping the search box */
+
+/* Bootstrap 4 text input with search icon */
+
+.has-search .form-control {
+  padding-left: 2.375rem;
+}
+
+.has-search .form-control-feedback {
+  position: absolute;
+  z-index: 2;
+  display: block;
+  width: 2.375rem;
+  height: 2.375rem;
+  line-height: 2.375rem;
+  text-align: center;
+  pointer-events: none;
+  color: #aaa;
+}
+
+.div-inline {
+  display: inline-block;
+}
+
+.display-4 {
+  width: 100%;
+  border-bottom: 1px solid $grayed-border;
+  line-height: 0.1em;
+  margin: 10px 0 20px;
+  span {
+    background: #fff;
+    padding: 0 10px;
+  }
+}
+
+.filename {
+  border: 1px solid $grayed-border;
+  border-radius: 2px;
+}
+
+.deleteButton {
+  color: $gfont;
+  :hover {
+    color: red;
+  }
+}
+
+label {
+  margin-right: 18px !important;
+}
+
+.fi {
+  font-size: 12px;
+}

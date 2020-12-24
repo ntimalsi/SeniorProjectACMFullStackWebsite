@@ -1,0 +1,242 @@
+<div class="row post mt-2">
+  <div class="col pt-3 pb-1">
+    <!-- post head -->
+    <div class="row">
+      <div class="col-sm-4 col-md-2 col-lg-1 mx-4">
+        <img src="{{ post.profileimg }}" class="ppic" alt="" />
+      </div>
+      <div class="col-sm-4 col-md-9 col-lg-9">
+        <div class="row font-weight-bolder username">
+          <div class="col px-0">{{ post.username }}</div>
+        </div>
+        <div class="row userpost">
+          <div class="col px-0">{{ post.designation }}</div>
+        </div>
+        <div class="row timepost">
+          <div class="col px-0">{{ post.time | date: "d MMM, h:m aa" }}</div>
+        </div>
+      </div>
+      <div class="col-sm-4 col-md-1 col-lg-1">
+        <span
+          nz-popover
+          [(nzPopoverVisible)]="visible"
+          (nzPopoverVisibleChange)="change()"
+          nzPopoverTrigger="click"
+          [nzPopoverContent]="contentTemplate"
+          nzPopoverPlacement="bottom"
+        >
+          <a class="fa fa-ellipsis-h d-flex justify-content-end tdot"></a>
+        </span>
+        <ng-template #contentTemplate>
+          <a (click)="onDelete(post._id)" *ngIf="authorizedToEditPost"
+            >Delete</a
+          >
+          <hr />
+          <a>Share</a>
+          <hr />
+          <a
+            data-toggle="modal"
+            data-target="#editModal"
+            (click)="onEdit(post.id)"
+            *ngIf="authorizedToEditPost"
+            >Edit</a
+          >
+        </ng-template>
+      </div>
+    </div>
+    <!-- post data -->
+    <div class="row pt-3">
+      <div class="col postdata mx-4" [innerHtml]="post.postContent"></div>
+    </div>
+    <div *ngIf="post.imagePath" class="row">
+      <div class="col">
+        <img [src]="post.imagePath" class="post-image" alt="post" />
+      </div>
+    </div>
+    <hr />
+    <!-- post likes -->
+    <div class="row mb-0">
+      <div class="col mx-4 likes">
+        <div class="row">
+          <div class="col-4 lcounts">
+            <i nz-icon nzType="fire" nzTheme="outline" class="pt-0"></i>
+            <!-- <span class="far fa-heart"></span> -->
+            <span class="pl-2">{{ post.lcounts }}</span>
+          </div>
+          <div class="col-4" class="mx-auto">{{ post.comcounts }} Comments</div>
+          <div class="col-4 d-flex justify-content-end">
+            <span class="fa fa-comment-alt"></span>
+            <span class="pl-2 mb-2" (click)="addnewComment()">
+              Add comment
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <ng-container *ngIf="loadComments">
+      <div class="row">
+        <div class="col px-5">
+          <ng-template #commentTemplateRef let-comment="comment">
+            <nz-comment [nzAuthor]="comment.author">
+              <nz-avatar
+                nz-comment-avatar
+                nzIcon="user"
+                [nzSrc]="comment.avatar"
+              ></nz-avatar>
+              <nz-comment-content>
+                <p>{{ comment.content }}</p>
+              </nz-comment-content>
+              <nz-comment-action>Reply to</nz-comment-action>
+              <ng-container *ngIf="comment.children && comment.children.length">
+                <ng-template ngFor let-child [ngForOf]="comment.children">
+                  <ng-template
+                    [ngTemplateOutlet]="commentTemplateRef"
+                    [ngTemplateOutletContext]="{ comment: child }"
+                  >
+                  </ng-template>
+                </ng-template>
+              </ng-container>
+            </nz-comment>
+          </ng-template>
+          <ng-template
+            [ngTemplateOutlet]="commentTemplateRef"
+            [ngTemplateOutletContext]="{ comment: data }"
+          >
+          </ng-template>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>
+
+<div *ngIf="editPostToggle && curUser">
+  <div class="modal fade" id="editModal" tabindex="-1">
+    <div class="modal-dialog mt-5" role="document">
+      <div class="modal-content">
+        <form [formGroup]="createdPost">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Edit post</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body mt-0">
+            <div class="row">
+              <div class="col-2 pr-0">
+                <img src="{{ profileImg }}" height="50" width="50" alt="" />
+              </div>
+              <div class="col-10">
+                <div class="row font-weight-bolder pt-1 px-0">
+                  {{ curUser.name }}
+                </div>
+                <div class="row">Student</div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col input-group">
+                <ckeditor
+                  [config]="editorConfig"
+                  [editor]="Editor"
+                  required
+                  formControlName="postContent"
+                  rows="10"
+                  data=""
+                  name="text"
+                  class="mt-4 w-100"
+                ></ckeditor>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="up"
+              data-toggle="modal"
+              data-target="#addImagesModal"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span class="fa fa-images imgi"> </span>Add images
+            </button>
+            <button
+              type="submit"
+              (click)="onSubmit()"
+              data-dismiss="modal"
+              class="btn btn-primary"
+            >
+              Update Post
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div
+    *ngIf="editPostToggle"
+    class="modal fade"
+    id="addImagesModal"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="addImagesModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addImagesModalLabel">Add images</h5>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <button
+            type="button"
+            class="btn btn-light"
+            (click)="filePicker.click()"
+          >
+            Pick Images
+          </button>
+          <input type="file" (change)="onImagePicked($event)" #filePicker />
+          <div
+            class="image-preview"
+            *ngIf="
+              imagePreview !== '' &&
+              imagePreview &&
+              createdPost.get('image').valid
+            "
+          >
+            <img [src]="imagePreview" alt="post images" />
+          </div>
+          <img [src]="post.imagePath" alt="" />
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">
+            Close
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary"
+            data-toggle="modal"
+            data-target="#editModal"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
+            Save changes
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

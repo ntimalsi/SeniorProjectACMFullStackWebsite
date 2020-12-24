@@ -1,0 +1,82 @@
+@import "../../../../../styles.scss";
+img {
+  border-radius: 50%;
+}
+
+.userpost,
+.timepost {
+  font-size: x-small;
+}
+
+.username,
+.postdata,
+.likes {
+  font-size: small;
+}
+
+.up {
+  padding-top: 3px;
+  padding-bottom: 3px;
+  padding-right: 8px;
+  padding-left: 8px;
+  border: 1px $blued solid;
+  color: $blued;
+  border-radius: 4px;
+  background-color: white;
+  &:hover {
+    background-color: rgba(128, 128, 128, 0.082);
+  }
+  &:focus {
+    outline: none;
+    background-color: rgba(128, 128, 128, 0.295);
+  }
+}
+
+.imgi {
+  color: $blued;
+}
+.post {
+  @include border;
+}
+
+hr {
+  margin-top: 9px;
+  margin-bottom: 9px;
+  margin-left: 14px;
+  margin-right: 14px;
+}
+
+.lcounts {
+  color: rgb(214, 0, 0);
+}
+
+.tdot {
+  color: $gfont;
+}
+
+.ppic {
+  height: 3.2rem;
+  width: 3.2rem;
+}
+
+.post-image {
+  max-height: 15rem;
+  max-width: 100%;
+  border-radius: 0%;
+}
+
+.image-preview {
+  height: 5rem 0;
+  margin: 1rem 0;
+  max-height: 5rem;
+
+  img {
+    height: 80px;
+    border-radius: 3px;
+  }
+}
+
+ckeditor {
+  border: 1px rgb(179, 179, 179) solid;
+  border-radius: 3px;
+}
